@@ -10,6 +10,7 @@
 
 function createHTMLList(arr) {
   // your code goes in here
+  const hobbies = document.getElementById('hobbies');
   const ulElement = document.createElement('ul');
 
   arr.map((hobby) => {
@@ -18,7 +19,7 @@ function createHTMLList(arr) {
     ulElement.appendChild(liElement);
   });
 
-  document.body.appendChild(ulElement);
+  hobbies.appendChild(ulElement);
 }
 
 const myHobbies = [
