@@ -5,11 +5,88 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pomodoro Clock</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Playfair+Display:wght@700&display=swap');
+    :root {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: teal;
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+      margin: 0;
+      padding: 2rem 0 0;
+    }
+    #app {
+      width: 500px;
+      margin: 0 auto;
+    }
+    #app a {
+      color: #fff;
+      text-decoration: none;
+    }
+    #app h1 {
+      font-size: 3rem;
+    }
+    #app h3 {
+      font-size: 2rem;
+      margin: 0;
+    }
+    #app #length {
+      font-size: 2rem;
+      margin: 1rem 2rem;
+      display: inline-block;
+      min-width: 50px;
+    }
+    #app .sessionClock {
+      width: 100%;
+      border: 5px solid rgba(0, 0, 0, 0.3);
+      border-radius: 50px;
+      margin: 1rem 0;
+      padding: 2rem 0;
+    }
+    #app #clock {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 4rem;
+      font-weight: bold;
+    }
+    #start, #pause {
+      display: inline-block;
+      margin: 0.5rem;
+    }
+    #pause {
+      opacity: 0.5;
+    }
+  </style>
 </head>
 
 <body>
   <div id="app">
+    <h1>Pomodoro Clock</h1>
+    <h3>Session Length</h3>
+    <a href="#" id="decrease">
+      <i class="fas fa-arrow-down"></i>
+    </a>
+    <span id="length">25</span>
+    <a href="#" id="increase">
+      <i class="fas fa-arrow-up"></i>
+    </a>
 
+    <div class="sessionClock">
+      <h3>Session</h3>
+      <span id="clock">00:00</span>
+    </div>
+
+    <a href="#" id="start">
+      <i class="fas fa-play"></i>
+    </a>
+    <a href="#" id="pause">
+      <i class="fas fa-pause"></i>
+    </a>
   </div>
   <script src="index.js"></script>
 </body>
