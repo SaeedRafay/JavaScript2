@@ -26,6 +26,19 @@ function checkSolution(array) {
 }
 
 // WRITE YOUR FUNCTION HERE
+function removeDuplicates(array) {
+  const duplicatesRemoved = [];
+  array.forEach(element => {
+    if(!duplicatesRemoved.includes(element)) {
+      duplicatesRemoved.push(element);
+    }
+  });
+  letters.length = 0;
+  duplicatesRemoved.forEach(element => {
+    letters.push(element);
+  });
+  return letters;
+}
 
 const letters = ['a', 'b', 'c', 'd', 'a', 'e', 'f', 'c', 'b'];
 removeDuplicates(letters);
