@@ -9,76 +9,89 @@
  * 
  */
 
-const sessionIncrement = document.getElementById("increase"); // Increase session length button
-const sessionDecrement = document.getElementById("decrease"); // Decrease session length button
-const sessionLength = document.getElementById("length"); // Session length text
-const clock = document.getElementById("clock"); // Clock text
-const clockStartStop = document.getElementById("start"); // Start/Stop button
-const clockPause = document.getElementById("pause"); // Pause/Unpause button
+const sessionIncrement = document.getElementById('increase'); // Increase session length button
+const sessionDecrement = document.getElementById('decrease'); // Decrease session length button
+const sessionLength = document.getElementById('length'); // Session length text
+const clock = document.getElementById('clock'); // Clock text
+const clockStartStop = document.getElementById('start'); // Start/Stop button
+const clockPause = document.getElementById('pause'); // Pause/Unpause button
 let intervalCountDown; // Global variable for SetInterval and ClearInterval functions for the clock
 let timerRunning = false; // Set the clock running status to false
 let timerPaused = false; // Set the clock paused status to false
 
-// When the session length is increased
-sessionIncrement.addEventListener("click", function(event) {
-  event.preventDefault();
-  if(!timerRunning) { // if the clock is not already started
-    const sessionLengthToNumber = parseFloat(sessionLength.textContent);
+function modifySessionLength(operation) {
+  const sessionLengthToNumber = parseFloat(sessionLength.textContent);
+  if(operation === "increase") {
     sessionLength.textContent = sessionLengthToNumber + 1;
-    clock.textContent = sessionLength.textContent + ":00";
+  }
+  if(operation === "decrease") {
+    sessionLength.textContent = sessionLengthToNumber <= 1 ? 1 : sessionLengthToNumber - 1;
+  }
+  clock.textContent = sessionLength.textContent + ':00';
+}
+
+// When the session length is increased
+sessionIncrement.addEventListener('click', function (event) {
+  event.preventDefault();
+  if (!timerRunning) {
+    // if the clock is not already started
+    modifySessionLength(this.id);
   }
 });
 
 // When the session length is decreased
-sessionDecrement.addEventListener("click", function(event) {
+sessionDecrement.addEventListener('click', function (event) {
   event.preventDefault();
-  if(!timerRunning) { // if the clock is not already started
-    const sessionLengthToNumber = parseFloat(sessionLength.textContent);
-    sessionLength.textContent = (sessionLengthToNumber <= 1) ? 1 : sessionLengthToNumber - 1;
-    clock.textContent = sessionLength.textContent + ":00";
+  if (!timerRunning) {
+    // if the clock is not already started
+    modifySessionLength(this.id);
   }
 });
 
 // This function is called from the clock SetInterval functions
 function timerCountDown() {
-  if (clock.textContent === "Time's up!") { // If the clock restarts after a round
-    clock.textContent = sessionLength.textContent + ":00";
+  if (clock.textContent === "Time's up!") {
+    // If the clock restarts after a round
+    clock.textContent = sessionLength.textContent + ':00';
   }
 
   // Convert minutes and seconds strings to numbers
-  let minutes = parseInt(clock.textContent.split(":")[0]);
-  let seconds = parseInt(clock.textContent.split(":")[1]);
+  let [minutes, seconds] = clock.textContent.split(':');
+  minutes = parseInt(minutes);
+  seconds = parseInt(seconds);
 
   // If the seconds reach zero, minus 1 from minutes and reset seconds to 60
-  if(seconds === 0) {
+  if (seconds === 0) {
     minutes--;
     seconds = 60;
   }
 
   // Minus one second and write minutes and seconds to the clock
   seconds--;
-  clock.textContent = minutes + ":" + seconds;
+  clock.textContent = minutes + ':' + seconds;
 
   // If the time is up
-  if(minutes <= 0 && seconds <= 0) {
+  if (minutes <= 0 && seconds <= 0) {
     clock.textContent = "Time's up!";
-    clockStartStop.innerHTML = "<i class=\"fas fa-play\"></i>";
+    clockStartStop.innerHTML = '<i class="fas fa-play"></i>';
     timerRunning = false;
     clearInterval(intervalCountDown);
   }
 }
 
 // When the start / stop button is clicked
-clockStartStop.addEventListener("click", function(event) {
+clockStartStop.addEventListener('click', function (event) {
   event.preventDefault();
-  if(!timerRunning) { // To start the clock
-    this.innerHTML = "<i class=\"fas fa-stop\"></i>";
+  if (!timerRunning) {
+    // To start the clock
+    this.innerHTML = '<i class="fas fa-stop"></i>';
     timerRunning = true;
     intervalCountDown = setInterval(timerCountDown, 1000);
-  } else { // To stop the clock
-    clock.textContent = sessionLength.textContent + ":00";
-    clockPause.style.opacity = "0.5";
-    this.innerHTML = "<i class=\"fas fa-play\"></i>";
+  } else {
+    // To stop the clock
+    clock.textContent = sessionLength.textContent + ':00';
+    clockPause.style.opacity = '0.5';
+    this.innerHTML = '<i class="fas fa-play"></i>';
     timerRunning = false;
     timerPaused = false;
     clearInterval(intervalCountDown);
@@ -86,18 +99,20 @@ clockStartStop.addEventListener("click", function(event) {
 });
 
 // When the pause / unpause button is clicked
-clockPause.addEventListener("click", function(event) {
+clockPause.addEventListener('click', function (event) {
   event.preventDefault();
-  if(timerRunning && !timerPaused) { // To pause the clock
-    this.style.opacity = "1";
+  if (timerRunning && !timerPaused) {
+    // To pause the clock
+    this.style.opacity = '1';
     timerPaused = true;
     clearInterval(intervalCountDown);
-  } else if(timerRunning && timerPaused) { // To unpause the clock
-    this.style.opacity = "0.5";
+  } else if (timerRunning && timerPaused) {
+    // To unpause the clock
+    this.style.opacity = '0.5';
     timerPaused = false;
     intervalCountDown = setInterval(timerCountDown, 1000);
   }
 });
 
 // Set the clock to whatever is the default session length when the page load
-clock.textContent = sessionLength.textContent + ":00";
+clock.textContent = sessionLength.textContent + ':00';
