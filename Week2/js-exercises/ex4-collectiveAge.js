@@ -10,8 +10,8 @@
 
 function collectiveAge(people) {
   // return the sum of age for all the people
-  function reducer(accumulator, currentValue) {
-    return accumulator + currentValue;
+  function reducer(combinedAge, currentAge) {
+    return combinedAge + currentAge;
   }
 
   return people

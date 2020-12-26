@@ -13,7 +13,7 @@ function createHTMLList(arr) {
   const hobbies = document.getElementById('hobbies');
   const ulElement = document.createElement('ul');
 
-  arr.map((hobby) => {
+  arr.forEach((hobby) => {
     const liElement = document.createElement('li');
     liElement.textContent = hobby;
     ulElement.appendChild(liElement);
